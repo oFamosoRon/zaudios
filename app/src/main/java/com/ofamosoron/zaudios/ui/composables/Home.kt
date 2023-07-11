@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,11 +28,11 @@ fun Home(
                 .padding(paddingValues.calculateTopPadding())
         ) {
             if (filesList.isEmpty()) {
-
+                Text(text = "No files")
             } else {
                 LazyColumn {
-                    items(items = filesList) {
-                        AudioItem(audioName = "Teste")
+                    items(items = filesList) { file ->
+                        AudioItem(audioName = file.name)
                     }
                 }
             }
