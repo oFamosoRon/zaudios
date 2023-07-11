@@ -9,16 +9,15 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.core.content.ContextCompat
-import com.ofamosoron.zaudios.ui.composables.Home
-import com.ofamosoron.zaudios.ui.composables.HomeEvent
-import com.ofamosoron.zaudios.ui.composables.HomeViewModel
+import com.ofamosoron.zaudios.ui.composables.home.Home
+import com.ofamosoron.zaudios.ui.composables.home.HomeEvent
+import com.ofamosoron.zaudios.ui.composables.home.HomeViewModel
 import com.ofamosoron.zaudios.ui.theme.ZaudiosTheme
 
 class MainActivity : ComponentActivity() {

@@ -1,4 +1,4 @@
-package com.ofamosoron.zaudios.ui.composables
+package com.ofamosoron.zaudios.ui.composables.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.ofamosoron.zaudios.ui.composables.utils.AudioItem
+import com.ofamosoron.zaudios.ui.composables.top_bar.Header
+import com.ofamosoron.zaudios.ui.composables.player.Player
 import java.io.File
+import java.time.Instant
 
 @Composable
 fun Home(
@@ -19,20 +23,29 @@ fun Home(
 ) {
     Scaffold(
         topBar = { Header() },
+        bottomBar = {
+            Player(
+                playClick = { /*TODO*/ },
+                nextClick = { /*TODO*/ },
+                previousClick = { /*TODO*/ })
+        }
     ) { paddingValues ->
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues.calculateTopPadding())
+                .padding(top = paddingValues.calculateTopPadding())
         ) {
             if (filesList.isEmpty()) {
                 Text(text = "No files")
             } else {
                 LazyColumn {
                     items(items = filesList) { file ->
-                        AudioItem(audioName = file.name)
+                        AudioItem(
+                            audioName = file.name,
+                            date = Instant.ofEpochMilli(file.lastModified()).toString()
+                        )
                     }
                 }
             }

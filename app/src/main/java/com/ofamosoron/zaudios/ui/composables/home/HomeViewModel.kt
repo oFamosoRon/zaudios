@@ -1,4 +1,4 @@
-package com.ofamosoron.zaudios.ui.composables
+package com.ofamosoron.zaudios.ui.composables.home
 
 import androidx.lifecycle.ViewModel
 import com.ofamosoron.zaudios.utils.SYSTEM_URL

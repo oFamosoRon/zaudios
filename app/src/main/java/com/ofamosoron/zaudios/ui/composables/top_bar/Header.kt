@@ -1,4 +1,4 @@
-package com.ofamosoron.zaudios.ui.composables
+package com.ofamosoron.zaudios.ui.composables.top_bar
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
