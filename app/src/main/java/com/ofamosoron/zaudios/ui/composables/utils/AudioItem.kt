@@ -22,7 +22,7 @@ import com.ofamosoron.zaudios.R
 fun AudioItem(
     audioName: String,
     date: String,
-    onClick: () -> Unit = { }
+    onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -64,6 +64,6 @@ fun AudioItem(
 @Composable
 fun PreviewAudioItem() {
     ZaudiosTheme {
-        AudioItem(audioName = "WAV-123-123.mp3", "11/06/2023")
+        AudioItem(audioName = "WAV-123-123.mp3", "11/06/2023", { })
     }
 }

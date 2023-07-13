@@ -11,22 +11,26 @@ import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.media3.ui.PlayerView
 import com.ofamosoron.zaudios.ui.composables.home.Home
 import com.ofamosoron.zaudios.ui.composables.home.HomeEvent
 import com.ofamosoron.zaudios.ui.composables.home.HomeViewModel
 import com.ofamosoron.zaudios.ui.theme.ZaudiosTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             ZaudiosTheme {
-                val viewModel by viewModels<HomeViewModel>()
+                val viewModel: HomeViewModel = hiltViewModel()
                 val state = viewModel.state.collectAsState()
 
                 if (!hasPermission(context = this)) {
@@ -35,7 +39,27 @@ class MainActivity : ComponentActivity() {
                     viewModel.onEvent(HomeEvent.ReadFiles)
                 }
 
-                Home(state.value.files)
+                AndroidView(
+                    factory = { context ->
+                        PlayerView(context).also {
+                            it.player = viewModel.player
+                        }
+                    },
+                    update = { },
+                )
+
+                Home(
+                    isPlaying = state.value.isPlaying,
+                    audioTrack = state.value.currentAudioTrack,
+                    filesList = state.value.files,
+                    playClick = { viewModel.onEvent(HomeEvent.PlayTrack) },
+                    pauseClick = { viewModel.onEvent(HomeEvent.StopTrack) },
+                    nextClick = { /*TODO*/ },
+                    previousClick = { /*TODO*/ },
+                    onItemClick = { file ->
+                        viewModel.onEvent(HomeEvent.SetAudioTrack(file))
+                    },
+                )
             }
         }
     }
